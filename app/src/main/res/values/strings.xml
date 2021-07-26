@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">ListaDePacotes</string>
+    <string name="especiais">Especiais</string>
+    <string name="pais">Brasil</string>
+    <string name="conteudo_do_banner_inicial">Banner inicial dos pacotes</string>
+    <string name="banner_inicial_dos_pacotes">Bannes inicial dos pacotes</string>
+    <string name="preco_final">Preço final:</string>
+</resources>
