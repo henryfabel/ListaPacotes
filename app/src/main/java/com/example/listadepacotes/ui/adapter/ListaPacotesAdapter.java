@@ -12,7 +12,7 @@ import android.widget.TextView;
 import com.example.listadepacotes.util.DiasUtil;
 import com.example.listadepacotes.util.MoedaUtil;
 import com.example.listadepacotes.R;
-import com.example.listadepacotes.util.ResourcesUtil;
+import com.example.listadepacotes.util.ResourceUtil;
 import com.example.listadepacotes.model.Pacote;
 
 import java.util.List;
@@ -72,7 +72,7 @@ public class ListaPacotesAdapter extends BaseAdapter {
 
     private void mostraImagem(View viewCriada, Pacote pacote) {
         ImageView imagem = viewCriada.findViewById(R.id.item_pacote_imagem);
-        Drawable drawableImagemPacote = ResourcesUtil
+        Drawable drawableImagemPacote = ResourceUtil
                 .devolveDrawable(context, pacote.getImagem());
         imagem.setImageDrawable(drawableImagemPacote);
     }
