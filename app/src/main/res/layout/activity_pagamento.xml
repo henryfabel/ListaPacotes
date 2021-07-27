@@ -106,7 +106,7 @@
         android:autofillHints="" />
 
     <Button
-        android:id="@+id/pagamento_botao_finalizar_compra"
+        android:id="@+id/pagamento_botao_finaliza_compra"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

@@ -3,6 +3,8 @@ package com.example.listadepacotes.ui.activity;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,11 +17,10 @@ import com.example.listadepacotes.util.DiasUtil;
 import com.example.listadepacotes.util.MoedaUtil;
 import com.example.listadepacotes.util.ResourceUtil;
 
-import java.math.BigDecimal;
-
 public class ResumoPacoteActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Resumo do pacote";
+    private Pacote pacote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +29,29 @@ public class ResumoPacoteActivity extends AppCompatActivity {
 
         setTitle(TITULO_APPBAR);
 
-        Pacote pacoteSaoPaulo = new Pacote("São Paulo", "sao_paulo_sp",
-                2, new BigDecimal("243.99"));
+        Intent intent = getIntent();
+        if (intent.hasExtra("pacote")) {
+            final Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
 
-        mostraLocal(pacoteSaoPaulo);
-        mostraImagem(pacoteSaoPaulo);
-        mostraDias(pacoteSaoPaulo);
-        mostraPreco(pacoteSaoPaulo);
-        mostraData(pacoteSaoPaulo);
+            mostraLocal(pacote);
+            mostraImagem(pacote);
+            mostraDias(pacote);
+            mostraPreco(pacote);
+            mostraData(pacote);
 
-        Intent intent = new Intent(this, PagamentoActivity.class);
-        startActivity(intent);
-
+            Button botaRealizaPagamento = findViewById(R.id.resumo_pacote_botao_realiza_pagamento);
+            botaRealizaPagamento.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(ResumoPacoteActivity.this,
+                            PagamentoActivity.class);
+                    intent.putExtra("pacote", pacote);
+                    startActivity(intent);
+                }
+            });
+        }
     }
+
 
     private void mostraData(Pacote pacote) {
         TextView data = findViewById(R.id.resumo_pacote_data);
