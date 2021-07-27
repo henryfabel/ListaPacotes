@@ -24,10 +24,13 @@ public class ListaPacotesActivity extends AppCompatActivity {
 
         setTitle(TITULO_APPBAR);
         configuraLista();
+        abrePacote();
 
+    }
+
+    private void abrePacote() {
         Intent intent = new Intent(this, ResumoPacoteActivity.class);
         startActivity(intent);
-
     }
 
     private void configuraLista() {
