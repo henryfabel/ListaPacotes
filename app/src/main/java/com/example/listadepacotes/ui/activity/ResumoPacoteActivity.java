@@ -17,10 +17,11 @@ import com.example.listadepacotes.util.DiasUtil;
 import com.example.listadepacotes.util.MoedaUtil;
 import com.example.listadepacotes.util.ResourceUtil;
 
+import static com.example.listadepacotes.ui.activity.PacoteActivityConstantes.CHAVE_PACOTE;
+
 public class ResumoPacoteActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Resumo do pacote";
-    private Pacote pacote;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,28 +29,43 @@ public class ResumoPacoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_resumo_pacote);
 
         setTitle(TITULO_APPBAR);
+        carregaPacoteRecebido();
+    }
 
+    private void carregaPacoteRecebido() {
         Intent intent = getIntent();
-        if (intent.hasExtra("pacote")) {
-            final Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
+        if (intent.hasExtra(CHAVE_PACOTE)) {
+            final Pacote pacote = (Pacote) intent.getSerializableExtra(CHAVE_PACOTE);
 
-            mostraLocal(pacote);
-            mostraImagem(pacote);
-            mostraDias(pacote);
-            mostraPreco(pacote);
-            mostraData(pacote);
+            inicializaCampos(pacote);
 
-            Button botaRealizaPagamento = findViewById(R.id.resumo_pacote_botao_realiza_pagamento);
-            botaRealizaPagamento.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(ResumoPacoteActivity.this,
-                            PagamentoActivity.class);
-                    intent.putExtra("pacote", pacote);
-                    startActivity(intent);
-                }
-            });
+            configuraBotao(pacote);
         }
+    }
+
+    private void configuraBotao(Pacote pacote) {
+        Button botaRealizaPagamento = findViewById(R.id.resumo_pacote_botao_realiza_pagamento);
+        botaRealizaPagamento.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                vaiParaPagamento(pacote);
+            }
+        });
+    }
+
+    private void vaiParaPagamento(Pacote pacote) {
+        Intent intent = new Intent(ResumoPacoteActivity.this,
+                PagamentoActivity.class);
+        intent.putExtra(CHAVE_PACOTE, pacote);
+        startActivity(intent);
+    }
+
+    private void inicializaCampos(Pacote pacote) {
+        mostraLocal(pacote);
+        mostraImagem(pacote);
+        mostraDias(pacote);
+        mostraPreco(pacote);
+        mostraData(pacote);
     }
 
 

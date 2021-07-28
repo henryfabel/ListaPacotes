@@ -12,7 +12,7 @@ import com.example.listadepacotes.R;
 import com.example.listadepacotes.model.Pacote;
 import com.example.listadepacotes.util.MoedaUtil;
 
-import java.io.Serializable;
+import static com.example.listadepacotes.ui.activity.PacoteActivityConstantes.CHAVE_PACOTE;
 
 public class PagamentoActivity extends AppCompatActivity {
 
@@ -25,25 +25,34 @@ public class PagamentoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_pagamento);
 
         setTitle(TITULO_APPBAR);
+        carregaPacoteRecebido();
+    }
 
+    private void carregaPacoteRecebido() {
         Intent intent = getIntent();
-        if (intent.hasExtra("pacote")) {
-            final Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
+        if (intent.hasExtra(CHAVE_PACOTE)) {
+            final Pacote pacote = (Pacote) intent.getSerializableExtra(CHAVE_PACOTE);
 
             mostraPreco(pacote);
-
-            Button botaoFinalizaCompra = findViewById(R.id.pagamento_botao_finaliza_compra);
-
-            botaoFinalizaCompra.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    Intent intent = new Intent(PagamentoActivity.this,
-                            ResumoCompraActivity.class);
-                    intent.putExtra("pacote", pacote);
-                    startActivity(intent);
-                }
-            });
+            configuraBotao(pacote);
 
         }
+    }
+
+    private void configuraBotao(final Pacote pacote) {
+        Button botaoFinalizaCompra = findViewById(R.id.pagamento_botao_finaliza_compra);
+        botaoFinalizaCompra.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                vaiParaResumoCompra(pacote);
+            }
+        });
+    }
+
+    private void vaiParaResumoCompra(Pacote pacote) {
+        Intent intent = new Intent(PagamentoActivity.this,
+                ResumoCompraActivity.class);
+        intent.putExtra(CHAVE_PACOTE, pacote);
+        startActivity(intent);
     }
 
     private void mostraPreco(Pacote pacote) {

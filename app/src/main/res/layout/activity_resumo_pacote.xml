@@ -80,6 +80,7 @@
         android:background="@drawable/botao_arredondado_laranja"
         android:text="@string/realizar_pagamento"
         android:textColor="@color/white"
+        android:theme="@style/BtnLaranja"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

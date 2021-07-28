@@ -18,6 +18,7 @@ import java.util.List;
 public class ListaPacotesActivity extends AppCompatActivity {
 
     public static final String TITULO_APPBAR = "Pacotes";
+    public static final String CHAVE_PACOTE = "pacote";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +27,7 @@ public class ListaPacotesActivity extends AppCompatActivity {
 
         setTitle(TITULO_APPBAR);
         configuraLista();
-//        abrePacote();
-
     }
-
-//    private void abrePacote() {
-//        Intent intent = new Intent(this, ResumoPacoteActivity.class);
-//        startActivity(intent);
-//    }
 
     private void configuraLista() {
         ListView listaDePacotes = findViewById(R.id.lista_pacotes_listview);
@@ -43,11 +37,15 @@ public class ListaPacotesActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int posicao, long id) {
                 Pacote pacoteClicado = pacotes.get(posicao);
-                Intent intent = new Intent(ListaPacotesActivity.this,
-                        ResumoPacoteActivity.class);
-                intent.putExtra("pacote", pacoteClicado);
-                startActivity(intent);
+                vaiParaResumoPacote(pacoteClicado);
             }
         });
+    }
+
+    private void vaiParaResumoPacote(Pacote pacoteClicado) {
+        Intent intent = new Intent(ListaPacotesActivity.this,
+                ResumoPacoteActivity.class);
+        intent.putExtra(CHAVE_PACOTE, pacoteClicado);
+        startActivity(intent);
     }
 }

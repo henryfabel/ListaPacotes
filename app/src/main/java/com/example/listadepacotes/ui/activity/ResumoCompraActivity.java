@@ -14,7 +14,7 @@ import com.example.listadepacotes.util.DataUtil;
 import com.example.listadepacotes.util.MoedaUtil;
 import com.example.listadepacotes.util.ResourceUtil;
 
-import java.math.BigDecimal;
+import static com.example.listadepacotes.ui.activity.PacoteActivityConstantes.CHAVE_PACOTE;
 
 public class ResumoCompraActivity extends AppCompatActivity {
 
@@ -24,19 +24,24 @@ public class ResumoCompraActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_resumo_compra);
-
         setTitle(TITULO_APPBAR);
+        carregaPacoteRecebido();
+    }
 
+    private void carregaPacoteRecebido() {
         Intent intent = getIntent();
-        if (intent.hasExtra("pacote")) {
-            Pacote pacote = (Pacote) intent.getSerializableExtra("pacote");
-
-            mostraLocal(pacote);
-            mostraImagem(pacote);
-            mostraData(pacote);
-            mostraPreco(pacote);
+        if (intent.hasExtra(CHAVE_PACOTE)) {
+            Pacote pacote = (Pacote) intent.getSerializableExtra(CHAVE_PACOTE);
+            inicializaCampos(pacote);
 
         }
+    }
+
+    private void inicializaCampos(Pacote pacote) {
+        mostraLocal(pacote);
+        mostraImagem(pacote);
+        mostraData(pacote);
+        mostraPreco(pacote);
     }
 
     private void mostraPreco(Pacote pacote) {
